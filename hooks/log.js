@@ -40,6 +40,8 @@ function toEvent(i, now = new Date().toISOString()) {
       return { ...base, type: 'launched', id: i.tool_use_id, agent_id: r.agentId || null, agent: r.agentType || ti.subagent_type };
     }
     case 'SubagentStop':
+      // SubagentStop without agent_type comes from Claude Code's own helper agents (progress summaries etc.) -> skip
+      if (!i.agent_type) return null;
       return { ...base, type: 'stop', agent_id: i.agent_id || null, agent: i.agent_type || null, summary: firstLine(i.last_assistant_message), report: i.last_assistant_message || '' };
     case 'Notification':
       return { ...base, type: 'waiting', kind: i.notification_type || null, message: i.message || '' };
@@ -65,7 +67,8 @@ function reduce(events) {
       const id = byAgentId.get(e.agent_id);
       if (id) jobs.get(id).done = true; else stopped.add(e.agent_id);
     }
-    if (e.type === 'waiting') waiting.add(e.session);
+    // Waiting = permission request only (idle_prompt just means Claude is waiting for input)
+    if (e.type === 'waiting' && e.kind === 'permission_prompt') waiting.add(e.session);
     if (e.type === 'start' || e.type === 'done' || e.type === 'stop') waiting.delete(e.session); // activity ends waiting
   }
   return [...jobs.values()].filter(j => !j.done).map(j => ({ agent: j.agent, task: j.task, waiting: waiting.has(j.session) }));
@@ -97,8 +100,11 @@ if (require.main === module && process.argv.includes('--test')) {
     const flipped = [events[0], ...events.slice(1).reverse()];
     assert.strictEqual(reduce(flipped).length, 0, f + ': flipped order');
   }
-  const w = reduce([{ type: 'start', id: 'a', agent: 'x', session: 's' }, { type: 'waiting', session: 's' }]);
+  const w = reduce([{ type: 'start', id: 'a', agent: 'x', session: 's' }, { type: 'waiting', kind: 'permission_prompt', session: 's' }]);
   assert.deepStrictEqual(w, [{ agent: 'x', task: undefined, waiting: true }]);
+  const idle = reduce([{ type: 'start', id: 'a', agent: 'x', session: 's' }, { type: 'waiting', kind: 'idle_prompt', session: 's' }]);
+  assert.strictEqual(idle[0].waiting, false, 'idle_prompt');
+  assert.strictEqual(toEvent({ hook_event_name: 'SubagentStop', agent_id: 'a1', last_assistant_message: 'x' }), null, 'SubagentStop without agent_type');
   console.log('ok'); process.exit(0);
 }
 
