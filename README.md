@@ -1,5 +1,7 @@
 # Tinyfloor hooks
 
+[English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
+
 A tiny Claude Code hook that logs what your subagents are doing — who started, who is still working, who finished, and when a session is waiting for your approval — as plain JSON lines on your machine.
 
 It is the open part of [Tinyfloor](https://tinyfloor-landing.vercel.app/), a small always-on panel for the corner of your screen (in development, not released yet). The logger and the event format are useful on their own: `tail -f` the file, feed it to your own dashboard, or build something better.
