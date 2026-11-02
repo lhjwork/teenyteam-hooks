@@ -23,6 +23,17 @@ const textOf = r => Array.isArray(r && r.content) ? r.content.filter(c => c && c
 const firstLine = s => String(s || '').trim().split('\n')[0].slice(0, 200);
 
 // One hook input -> one event (or null). The report body is passed separately in `report`.
+// The message of the last SubagentHandback in a subagent transcript (jsonl). undefined if unreadable.
+function handback(file) {
+  let lines;
+  try { lines = fs.readFileSync(file, 'utf8').split('\n').reverse(); } catch { return undefined; }
+  for (const l of lines) {
+    let o; try { o = JSON.parse(l); } catch { continue; }
+    const c = Array.isArray(o?.message?.content) ? [...o.message.content].reverse().find(c => c?.name === 'SubagentHandback') : null;
+    if (typeof c?.input?.message === 'string') return c.input.message;
+  }
+}
+
 function toEvent(i, now = new Date().toISOString()) {
   const base = { v: 1, t: now, project: i.cwd || null, session: i.session_id || null, cc: ccVersion() };
   const ti = i.tool_input || {};
@@ -42,7 +53,9 @@ function toEvent(i, now = new Date().toISOString()) {
     case 'SubagentStop':
       // SubagentStop without agent_type comes from Claude Code's own helper agents (progress summaries etc.) -> skip
       if (!i.agent_type) return null;
-      return { ...base, type: 'stop', agent_id: i.agent_id || null, agent: i.agent_type || null, summary: firstLine(i.last_assistant_message), report: i.last_assistant_message || '' };
+      // Background subagents hand their final report over via the SubagentHandback tool, so last_assistant_message is empty -> read it from the transcript
+      const msg = i.last_assistant_message || handback(i.agent_transcript_path);
+      return { ...base, type: 'stop', agent_id: i.agent_id || null, agent: i.agent_type || null, summary: firstLine(msg), report: msg || '' };
     case 'Notification':
       return { ...base, type: 'waiting', kind: i.notification_type || null, message: i.message || '' };
     default:
