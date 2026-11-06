@@ -19,7 +19,9 @@ const ccVersion = () => {
   return m ? `${m[1]}.${m[2]}.${m[3]}` : null;
 };
 
-const textOf = r => Array.isArray(r && r.content) ? r.content.filter(c => c && c.type === 'text').map(c => c.text).join('\n') : '';
+// Claude Code 2.1.3xx는 결과 앞에 <tools-used-before-summary>…</tools-used-before-summary>를 붙인다 → 뗀다
+const TOOLS_TAG = /^\s*<tools-used-before-summary>[\s\S]*?<\/tools-used-before-summary>\s*/;
+const textOf = r => Array.isArray(r && r.content) ? r.content.filter(c => c && c.type === 'text').map(c => c.text).join('\n').replace(TOOLS_TAG, '') : '';
 const firstLine = s => String(s || '').trim().split('\n')[0].slice(0, 200);
 
 // One hook input -> one event (or null). The report body is passed separately in `report`.
