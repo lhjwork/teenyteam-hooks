@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 A tiny Claude Code hook that logs what your subagents are doing — who started, who is still working, who finished, and when a session is waiting for your approval — as plain JSON lines on your machine.
 
-It is the open part of [Tinyfloor](https://tinyfloor-landing.vercel.app/), a small always-on panel for the corner of your screen (in development, not released yet). The logger and the event format are useful on their own: `tail -f` the file, feed it to your own dashboard, or build something better.
+It is the open part of [TeenyTeam](https://landing.teenyteam.com/), a small always-on panel for the corner of your screen (in development, not released yet). The logger and the event format are useful on their own: `tail -f` the file, feed it to your own dashboard, or build something better.
 
 > Status: prototype. Checked on **macOS** with Claude Code 2.1.289. Windows is not checked yet. The `Notification` fields are not confirmed yet.
 
 ## What it does
 
 - Listens to `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` and `Notification`.
-- Appends one line per event to `~/.tinyfloor/events.jsonl` and saves each subagent's final message to `~/.tinyfloor/reports/*.md`.
+- Appends one line per event to `~/.teenyteam/events.jsonl` and saves each subagent's final message to `~/.teenyteam/reports/*.md`.
 - Pairs start and end by `agent_id`, not by order — hook order varies and subagents run in parallel or in the background.
 - Ignores unknown fields and **always exits 0**, so it can never block Claude Code.
 - No dependencies, no network. Nothing leaves your machine.
@@ -31,7 +31,7 @@ Needs Node.js (Claude Code users usually have it). Copy `hooks/log.js` into your
 }
 ```
 
-Run a subagent, then `tail -f ~/.tinyfloor/events.jsonl`.
+Run a subagent, then `tail -f ~/.teenyteam/events.jsonl`.
 
 Self-check against the real hook inputs in `hooks/fixtures/`:
 
@@ -69,4 +69,4 @@ Who is working right now = `reduce(events)` in `hooks/log.js`. Notes from real i
 
 ## License
 
-MIT. Tinyfloor is an independent project, not affiliated with Anthropic.
+MIT. TeenyTeam is an independent project, not affiliated with Anthropic.

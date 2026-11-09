@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Hook Claude Code mungil yang mencatat apa yang dikerjakan subagen kamu (siapa yang mulai, siapa yang masih bekerja, siapa yang selesai, dan kapan sesi menunggu persetujuanmu) sebagai baris JSON biasa di komputermu.
 
-Ini bagian terbuka dari [Tinyfloor](https://tinyfloor-landing.vercel.app/), panel kecil yang selalu tampil di sudut layar (sedang dikembangkan, belum dirilis). Pencatat dan format event-nya berguna sendiri: jalankan `tail -f` pada filenya, kirim ke dasbor buatanmu, atau bikin yang lebih bagus.
+Ini bagian terbuka dari [TeenyTeam](https://landing.teenyteam.com/), panel kecil yang selalu tampil di sudut layar (sedang dikembangkan, belum dirilis). Pencatat dan format event-nya berguna sendiri: jalankan `tail -f` pada filenya, kirim ke dasbor buatanmu, atau bikin yang lebih bagus.
 
 > Status: prototipe. Dicek di **macOS** dengan Claude Code 2.1.289. Windows belum dicek. Field `Notification` belum dikonfirmasi.
 
 ## Apa yang dilakukannya
 
 - Mendengarkan `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop`, dan `Notification`.
-- Menambahkan satu baris per event ke `~/.tinyfloor/events.jsonl` dan menyimpan pesan akhir tiap subagen ke `~/.tinyfloor/reports/*.md`.
+- Menambahkan satu baris per event ke `~/.teenyteam/events.jsonl` dan menyimpan pesan akhir tiap subagen ke `~/.teenyteam/reports/*.md`.
 - Memasangkan mulai dan selesai lewat `agent_id`, bukan urutan, karena urutan hook bisa berubah dan subagen berjalan paralel atau di latar belakang.
 - Mengabaikan field yang tidak dikenal dan **selalu keluar dengan exit 0**, jadi tidak pernah bisa menghalangi Claude Code.
 - Tanpa dependensi, tanpa jaringan. Tidak ada yang keluar dari komputermu.
@@ -31,7 +31,7 @@ Butuh Node.js (pengguna Claude Code biasanya sudah punya). Salin `hooks/log.js` 
 }
 ```
 
-Jalankan satu subagen, lalu `tail -f ~/.tinyfloor/events.jsonl`.
+Jalankan satu subagen, lalu `tail -f ~/.teenyteam/events.jsonl`.
 
 Pengecekan mandiri dengan input hook asli di `hooks/fixtures/`:
 
@@ -69,4 +69,4 @@ Siapa yang sedang bekerja = `reduce(events)` di `hooks/log.js`. Catatan dari inp
 
 ## Lisensi
 
-MIT. Tinyfloor adalah proyek independen, tidak berafiliasi dengan Anthropic.
+MIT. TeenyTeam adalah proyek independen, tidak berafiliasi dengan Anthropic.

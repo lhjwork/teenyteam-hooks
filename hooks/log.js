@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// Tinyfloor hook logger (prototype, checked on macOS).
-// Input: Claude Code hook JSON on stdin -> one line in ~/.tinyfloor/events.jsonl (+ reports/*.md)
+// TeenyTeam hook logger (prototype, checked on macOS).
+// Input: Claude Code hook JSON on stdin -> one line in ~/.teenyteam/events.jsonl (+ reports/*.md)
 // Always exits 0 so it can never block Claude Code. Unknown fields are ignored.
 //
 // Observed on Claude Code 2.1.289 (see hooks/fixtures/):
@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const DIR = path.join(os.homedir(), '.tinyfloor');
+const DIR = path.join(os.homedir(), '.teenyteam');
 
 const ccVersion = () => {
   const m = String(process.env.AI_AGENT || '').match(/claude-code_(\d+)-(\d+)-(\d+)/); // undocumented env var; null if missing

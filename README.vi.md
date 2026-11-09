@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Một hook Claude Code nhỏ xíu ghi lại các subagent của bạn đang làm gì (ai đã bắt đầu, ai còn đang làm, ai đã xong, và khi nào một phiên đang chờ bạn phê duyệt) dưới dạng các dòng JSON thuần trên máy của bạn.
 
-Đây là phần mã nguồn mở của [Tinyfloor](https://tinyfloor-landing.vercel.app/), một bảng nhỏ luôn hiển thị ở góc màn hình (đang phát triển, chưa ra mắt). Trình ghi và định dạng sự kiện tự thân đã hữu ích: chạy `tail -f` trên tệp, đưa vào dashboard của riêng bạn, hoặc tự làm thứ gì đó tốt hơn.
+Đây là phần mã nguồn mở của [TeenyTeam](https://landing.teenyteam.com/), một bảng nhỏ luôn hiển thị ở góc màn hình (đang phát triển, chưa ra mắt). Trình ghi và định dạng sự kiện tự thân đã hữu ích: chạy `tail -f` trên tệp, đưa vào dashboard của riêng bạn, hoặc tự làm thứ gì đó tốt hơn.
 
 > Trạng thái: bản thử nghiệm. Đã kiểm tra trên **macOS** với Claude Code 2.1.289. Windows chưa được kiểm tra. Các trường của `Notification` chưa được xác nhận.
 
 ## Nó làm gì
 
 - Lắng nghe `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` và `Notification`.
-- Thêm một dòng cho mỗi sự kiện vào `~/.tinyfloor/events.jsonl` và lưu tin nhắn cuối của từng subagent vào `~/.tinyfloor/reports/*.md`.
+- Thêm một dòng cho mỗi sự kiện vào `~/.teenyteam/events.jsonl` và lưu tin nhắn cuối của từng subagent vào `~/.teenyteam/reports/*.md`.
 - Ghép lúc bắt đầu và lúc kết thúc bằng `agent_id`, không theo thứ tự: thứ tự hook thay đổi và các subagent chạy song song hoặc chạy nền.
 - Bỏ qua các trường không biết và **luôn thoát với exit 0**, nên không bao giờ chặn được Claude Code.
 - Không phụ thuộc, không dùng mạng. Không có gì rời khỏi máy của bạn.
@@ -31,7 +31,7 @@ Cần Node.js (người dùng Claude Code thường đã có). Sao chép `hooks/
 }
 ```
 
-Chạy một subagent, rồi chạy `tail -f ~/.tinyfloor/events.jsonl`.
+Chạy một subagent, rồi chạy `tail -f ~/.teenyteam/events.jsonl`.
 
 Tự kiểm tra bằng dữ liệu đầu vào hook thật trong `hooks/fixtures/`:
 
@@ -69,4 +69,4 @@ Ai đang làm việc lúc này = `reduce(events)` trong `hooks/log.js`. Ghi chú
 
 ## Giấy phép
 
-MIT. Tinyfloor là một dự án độc lập, không liên kết với Anthropic.
+MIT. TeenyTeam là một dự án độc lập, không liên kết với Anthropic.

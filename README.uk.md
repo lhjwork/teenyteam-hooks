@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Крихітний хук для Claude Code, який записує, що роблять твої субагенти (хто почав, хто ще працює, хто закінчив і коли сесія чекає твого підтвердження), у вигляді звичайних рядків JSON на твоєму комп'ютері.
 
-Це відкрита частина [Tinyfloor](https://tinyfloor-landing.vercel.app/), невеликої панелі, яка завжди в кутку екрана (у розробці, ще не вийшла). Логер і формат подій корисні й самі по собі: запусти `tail -f` на файлі, передай його власному дашборду або зроби щось краще.
+Це відкрита частина [TeenyTeam](https://landing.teenyteam.com/), невеликої панелі, яка завжди в кутку екрана (у розробці, ще не вийшла). Логер і формат подій корисні й самі по собі: запусти `tail -f` на файлі, передай його власному дашборду або зроби щось краще.
 
 > Статус: прототип. Перевірено на **macOS** з Claude Code 2.1.289. Windows ще не перевірено. Поля `Notification` ще не підтверджено.
 
 ## Що він робить
 
 - Слухає `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` і `Notification`.
-- Дописує по одному рядку на подію в `~/.tinyfloor/events.jsonl` і зберігає останнє повідомлення кожного субагента в `~/.tinyfloor/reports/*.md`.
+- Дописує по одному рядку на подію в `~/.teenyteam/events.jsonl` і зберігає останнє повідомлення кожного субагента в `~/.teenyteam/reports/*.md`.
 - Зіставляє початок і кінець за `agent_id`, а не за порядком: порядок хуків змінюється, а субагенти працюють паралельно або у фоні.
 - Ігнорує невідомі поля й **завжди завершується з exit 0**, тож ніколи не заблокує Claude Code.
 - Без залежностей і без мережі. Ніщо не залишає твій комп'ютер.
@@ -31,7 +31,7 @@
 }
 ```
 
-Запусти субагента, потім виконай `tail -f ~/.tinyfloor/events.jsonl`.
+Запусти субагента, потім виконай `tail -f ~/.teenyteam/events.jsonl`.
 
 Самоперевірка на реальних вхідних даних хуків із `hooks/fixtures/`:
 
@@ -69,4 +69,4 @@ node hooks/log.js --test   # prints "ok"
 
 ## Ліцензія
 
-MIT. Tinyfloor - незалежний проєкт, не пов'язаний з Anthropic.
+MIT. TeenyTeam - незалежний проєкт, не пов'язаний з Anthropic.

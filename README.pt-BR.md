@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Um hook minúsculo do Claude Code que registra o que seus subagentes estão fazendo (quem começou, quem ainda está trabalhando, quem terminou e quando uma sessão está esperando sua aprovação) como linhas JSON simples na sua máquina.
 
-Ele é a parte aberta do [Tinyfloor](https://tinyfloor-landing.vercel.app/), um pequeno painel sempre visível para o canto da tela (em desenvolvimento, ainda não lançado). O registrador e o formato de eventos são úteis sozinhos: use `tail -f` no arquivo, envie para o seu próprio painel ou construa algo melhor.
+Ele é a parte aberta do [TeenyTeam](https://landing.teenyteam.com/), um pequeno painel sempre visível para o canto da tela (em desenvolvimento, ainda não lançado). O registrador e o formato de eventos são úteis sozinhos: use `tail -f` no arquivo, envie para o seu próprio painel ou construa algo melhor.
 
 > Status: protótipo. Testado no **macOS** com o Claude Code 2.1.289. O Windows ainda não foi testado. Os campos de `Notification` ainda não foram confirmados.
 
 ## O que ele faz
 
 - Escuta `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` e `Notification`.
-- Acrescenta uma linha por evento em `~/.tinyfloor/events.jsonl` e salva a mensagem final de cada subagente em `~/.tinyfloor/reports/*.md`.
+- Acrescenta uma linha por evento em `~/.teenyteam/events.jsonl` e salva a mensagem final de cada subagente em `~/.teenyteam/reports/*.md`.
 - Associa início e fim por `agent_id`, não pela ordem: a ordem dos hooks varia e os subagentes rodam em paralelo ou em segundo plano.
 - Ignora campos desconhecidos e **sempre termina com exit 0**, então nunca pode bloquear o Claude Code.
 - Sem dependências, sem rede. Nada sai da sua máquina.
@@ -31,7 +31,7 @@ Precisa do Node.js (quem usa o Claude Code geralmente já tem). Copie `hooks/log
 }
 ```
 
-Execute um subagente e depois `tail -f ~/.tinyfloor/events.jsonl`.
+Execute um subagente e depois `tail -f ~/.teenyteam/events.jsonl`.
 
 Autoteste com as entradas reais de hooks em `hooks/fixtures/`:
 
@@ -69,4 +69,4 @@ Quem está trabalhando agora = `reduce(events)` em `hooks/log.js`. Observações
 
 ## Licença
 
-MIT. O Tinyfloor é um projeto independente, sem afiliação com a Anthropic.
+MIT. O TeenyTeam é um projeto independente, sem afiliação com a Anthropic.

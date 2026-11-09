@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Un tout petit hook Claude Code qui consigne ce que font vos sous-agents (qui a démarré, qui travaille encore, qui a terminé, et quand une session attend votre approbation) sous forme de simples lignes JSON sur votre machine.
 
-C'est la partie ouverte de [Tinyfloor](https://tinyfloor-landing.vercel.app/), un petit panneau toujours visible pour le coin de votre écran (en développement, pas encore sorti). Le journal et le format d'événements sont utiles seuls : faites un `tail -f` sur le fichier, envoyez-le à votre propre tableau de bord, ou construisez mieux.
+C'est la partie ouverte de [TeenyTeam](https://landing.teenyteam.com/), un petit panneau toujours visible pour le coin de votre écran (en développement, pas encore sorti). Le journal et le format d'événements sont utiles seuls : faites un `tail -f` sur le fichier, envoyez-le à votre propre tableau de bord, ou construisez mieux.
 
 > Statut : prototype. Vérifié sous **macOS** avec Claude Code 2.1.289. Windows n'est pas encore vérifié. Les champs de `Notification` ne sont pas encore confirmés.
 
 ## Ce qu'il fait
 
 - Écoute `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` et `Notification`.
-- Ajoute une ligne par événement à `~/.tinyfloor/events.jsonl` et enregistre le message final de chaque sous-agent dans `~/.tinyfloor/reports/*.md`.
+- Ajoute une ligne par événement à `~/.teenyteam/events.jsonl` et enregistre le message final de chaque sous-agent dans `~/.teenyteam/reports/*.md`.
 - Associe début et fin par `agent_id`, pas par ordre : l'ordre des hooks varie et les sous-agents tournent en parallèle ou en arrière-plan.
 - Ignore les champs inconnus et **termine toujours avec exit 0**, donc il ne peut jamais bloquer Claude Code.
 - Aucune dépendance, aucun réseau. Rien ne quitte votre machine.
@@ -31,7 +31,7 @@ Nécessite Node.js (les utilisateurs de Claude Code l'ont généralement). Copie
 }
 ```
 
-Lancez un sous-agent, puis `tail -f ~/.tinyfloor/events.jsonl`.
+Lancez un sous-agent, puis `tail -f ~/.teenyteam/events.jsonl`.
 
 Autotest avec les vraies entrées de hooks de `hooks/fixtures/` :
 
@@ -69,4 +69,4 @@ Qui travaille en ce moment = `reduce(events)` dans `hooks/log.js`. Remarques tir
 
 ## Licence
 
-MIT. Tinyfloor est un projet indépendant, non affilié à Anthropic.
+MIT. TeenyTeam est un projet indépendant, non affilié à Anthropic.

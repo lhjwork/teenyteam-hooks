@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 一个很小的 Claude Code hook,把你的 subagent 在做什么(谁开始了、谁还在工作、谁完成了、会话何时在等你批准)以纯 JSON 行的形式记录在你自己的电脑上。
 
-它是 [Tinyfloor](https://tinyfloor-landing.vercel.app/) 的开源部分。Tinyfloor 是一个常驻在屏幕角落的小面板(开发中,尚未发布)。记录器和事件格式本身就有用:对文件 `tail -f`、喂给你自己的看板,或者做出更好的东西。
+它是 [TeenyTeam](https://landing.teenyteam.com/) 的开源部分。TeenyTeam 是一个常驻在屏幕角落的小面板(开发中,尚未发布)。记录器和事件格式本身就有用:对文件 `tail -f`、喂给你自己的看板,或者做出更好的东西。
 
 > 状态:原型。已在 **macOS** 上用 Claude Code 2.1.289 验证。Windows 尚未验证。`Notification` 的字段尚未确认。
 
 ## 它做什么
 
 - 监听 `PreToolUse` / `PostToolUse`(matcher 为 `Agent`)、`SubagentStop` 和 `Notification`。
-- 每个事件向 `~/.tinyfloor/events.jsonl` 追加一行,并把每个 subagent 的最后一条消息保存到 `~/.tinyfloor/reports/*.md`。
+- 每个事件向 `~/.teenyteam/events.jsonl` 追加一行,并把每个 subagent 的最后一条消息保存到 `~/.teenyteam/reports/*.md`。
 - 用 `agent_id` 而不是顺序来配对开始和结束,因为 hook 的顺序不固定,subagent 还可能并行或在后台运行。
 - 忽略未知字段,并且**始终以 exit 0 退出**,所以绝不会阻塞 Claude Code。
 - 无依赖,不联网。任何内容都不会离开你的电脑。
@@ -31,7 +31,7 @@
 }
 ```
 
-运行一个 subagent,然后执行 `tail -f ~/.tinyfloor/events.jsonl`。
+运行一个 subagent,然后执行 `tail -f ~/.teenyteam/events.jsonl`。
 
 用 `hooks/fixtures/` 里的真实 hook 输入做自检:
 
@@ -69,4 +69,4 @@ node hooks/log.js --test   # prints "ok"
 
 ## 许可证
 
-MIT。Tinyfloor 是独立项目,与 Anthropic 无关。
+MIT。TeenyTeam 是独立项目,与 Anthropic 无关。

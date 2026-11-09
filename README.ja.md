@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 サブエージェントが何をしているか(誰が開始したか、誰がまだ作業中か、誰が終わったか、セッションがいつ承認待ちになったか)を、手元のマシンにプレーンな JSON 行として記録する小さな Claude Code の hook です。
 
-画面の隅に常駐する小さなパネル [Tinyfloor](https://tinyfloor-landing.vercel.app/) のオープンな部分です(開発中で、まだ公開していません)。ロガーとイベント形式は単体でも役に立ちます。ファイルを `tail -f` で眺めたり、自作のダッシュボードに渡したり、もっと良いものを作ったりできます。
+画面の隅に常駐する小さなパネル [TeenyTeam](https://landing.teenyteam.com/) のオープンな部分です(開発中で、まだ公開していません)。ロガーとイベント形式は単体でも役に立ちます。ファイルを `tail -f` で眺めたり、自作のダッシュボードに渡したり、もっと良いものを作ったりできます。
 
 > ステータス: プロトタイプ。**macOS** で Claude Code 2.1.289 を使って確認しました。Windows は未確認です。`Notification` のフィールドも未確認です。
 
 ## できること
 
 - `PreToolUse` / `PostToolUse`(matcher は `Agent`)、`SubagentStop`、`Notification` を受け取ります。
-- イベントごとに 1 行を `~/.tinyfloor/events.jsonl` に追記し、各サブエージェントの最後のメッセージを `~/.tinyfloor/reports/*.md` に保存します。
+- イベントごとに 1 行を `~/.teenyteam/events.jsonl` に追記し、各サブエージェントの最後のメッセージを `~/.teenyteam/reports/*.md` に保存します。
 - 開始と終了は順番ではなく `agent_id` で対応づけます。hook の順序は一定ではなく、サブエージェントは並列やバックグラウンドで動くためです。
 - 未知のフィールドは無視し、**常に exit 0 で終了**するので、Claude Code を止めることはありません。
 - 依存なし、ネットワークなし。データがマシンの外に出ることはありません。
@@ -31,7 +31,7 @@ Node.js が必要です(Claude Code を使っている人はたいてい入っ�
 }
 ```
 
-サブエージェントを 1 回動かしてから、`tail -f ~/.tinyfloor/events.jsonl` を実行してください。
+サブエージェントを 1 回動かしてから、`tail -f ~/.teenyteam/events.jsonl` を実行してください。
 
 `hooks/fixtures/` にある実際の hook 入力でセルフチェックできます。
 
@@ -69,4 +69,4 @@ node hooks/log.js --test   # prints "ok"
 
 ## ライセンス
 
-MIT。Tinyfloor は独立したプロジェクトであり、Anthropic とは関係ありません。
+MIT。TeenyTeam は独立したプロジェクトであり、Anthropic とは関係ありません。

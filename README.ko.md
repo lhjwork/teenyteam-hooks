@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 서브에이전트가 무엇을 하는지(누가 시작했는지, 누가 아직 일하는 중인지, 누가 끝냈는지, 세션이 승인을 기다리는 때가 언제인지)를 내 컴퓨터에 일반 JSON 줄로 기록하는 작은 Claude Code hook이에요.
 
-화면 구석에 늘 떠 있는 작은 패널 [Tinyfloor](https://tinyfloor-landing.vercel.app/)의 오픈 소스 부분이에요(개발 중, 아직 출시 전). 기록기와 이벤트 형식은 그것만으로도 쓸모가 있어요. 파일에 `tail -f`를 걸거나, 직접 만든 대시보드에 넘기거나, 더 좋은 걸 만들어 보세요.
+화면 구석에 늘 떠 있는 작은 패널 [TeenyTeam](https://landing.teenyteam.com/)의 오픈 소스 부분이에요(개발 중, 아직 출시 전). 기록기와 이벤트 형식은 그것만으로도 쓸모가 있어요. 파일에 `tail -f`를 걸거나, 직접 만든 대시보드에 넘기거나, 더 좋은 걸 만들어 보세요.
 
 > 상태: 시제품. **macOS**에서 Claude Code 2.1.289로 확인했어요. Windows는 아직 확인하지 않았어요. `Notification` 필드도 아직 확인하지 않았어요.
 
 ## 하는 일
 
 - `PreToolUse` / `PostToolUse`(matcher `Agent`), `SubagentStop`, `Notification`을 들어요.
-- 이벤트마다 한 줄씩 `~/.tinyfloor/events.jsonl`에 덧붙이고, 각 서브에이전트의 마지막 메시지를 `~/.tinyfloor/reports/*.md`에 저장해요.
+- 이벤트마다 한 줄씩 `~/.teenyteam/events.jsonl`에 덧붙이고, 각 서브에이전트의 마지막 메시지를 `~/.teenyteam/reports/*.md`에 저장해요.
 - 시작과 끝을 순서가 아니라 `agent_id`로 짝지어요. hook 순서는 일정하지 않고, 서브에이전트는 병렬이나 백그라운드로 돌기 때문이에요.
 - 모르는 필드는 무시하고 **항상 exit 0**으로 끝나서, Claude Code를 막을 일이 없어요.
 - 의존성 없음, 네트워크 없음. 내 컴퓨터 밖으로 나가는 건 없어요.
@@ -31,7 +31,7 @@ Node.js가 필요해요(Claude Code 사용자는 보통 이미 있어요). `hook
 }
 ```
 
-서브에이전트를 한 번 돌린 뒤 `tail -f ~/.tinyfloor/events.jsonl`을 실행해 보세요.
+서브에이전트를 한 번 돌린 뒤 `tail -f ~/.teenyteam/events.jsonl`을 실행해 보세요.
 
 `hooks/fixtures/`에 있는 실제 hook 입력으로 자체 점검을 할 수 있어요.
 
@@ -69,4 +69,4 @@ node hooks/log.js --test   # prints "ok"
 
 ## 라이선스
 
-MIT. Tinyfloor는 독립 프로젝트이며 Anthropic과 관련이 없어요.
+MIT. TeenyTeam은 독립 프로젝트이며 Anthropic과 관련이 없어요.

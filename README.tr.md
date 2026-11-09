@@ -1,17 +1,17 @@
-# Tinyfloor hooks
+# TeenyTeam hooks
 
 [English](README.md) · [Deutsch](README.de.md) · [Español](README.es.md) · [Français](README.fr.md) · [Bahasa Indonesia](README.id.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Polski](README.pl.md) · [Português (Brasil)](README.pt-BR.md) · [Русский](README.ru.md) · [Türkçe](README.tr.md) · [Українська](README.uk.md) · [Tiếng Việt](README.vi.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md)
 
 Alt ajanlarının ne yaptığını (kim başladı, kim hâlâ çalışıyor, kim bitirdi ve bir oturum ne zaman onayını bekliyor) bilgisayarında düz JSON satırları olarak kaydeden minik bir Claude Code hook'u.
 
-[Tinyfloor](https://tinyfloor-landing.vercel.app/)'un açık kaynak kısmıdır; Tinyfloor, ekranının köşesinde hep açık duran küçük bir paneldir (geliştirme aşamasında, henüz çıkmadı). Kaydedici ve olay biçimi tek başına da işe yarar: dosyaya `tail -f` çek, kendi panona ver ya da daha iyisini yap.
+[TeenyTeam](https://landing.teenyteam.com/)'un açık kaynak kısmıdır; TeenyTeam, ekranının köşesinde hep açık duran küçük bir paneldir (geliştirme aşamasında, henüz çıkmadı). Kaydedici ve olay biçimi tek başına da işe yarar: dosyaya `tail -f` çek, kendi panona ver ya da daha iyisini yap.
 
 > Durum: prototip. **macOS**'ta Claude Code 2.1.289 ile denendi. Windows henüz denenmedi. `Notification` alanları henüz doğrulanmadı.
 
 ## Ne yapar
 
 - `PreToolUse` / `PostToolUse` (matcher `Agent`), `SubagentStop` ve `Notification` olaylarını dinler.
-- Her olay için `~/.tinyfloor/events.jsonl` dosyasına bir satır ekler ve her alt ajanın son mesajını `~/.tinyfloor/reports/*.md` içine kaydeder.
+- Her olay için `~/.teenyteam/events.jsonl` dosyasına bir satır ekler ve her alt ajanın son mesajını `~/.teenyteam/reports/*.md` içine kaydeder.
 - Başlangıç ile bitişi sıraya göre değil `agent_id` ile eşleştirir: hook sırası değişebilir ve alt ajanlar paralel ya da arka planda çalışır.
 - Bilinmeyen alanları yok sayar ve **her zaman exit 0 ile çıkar**, yani Claude Code'u asla engelleyemez.
 - Bağımlılık yok, ağ yok. Hiçbir şey bilgisayarından çıkmaz.
@@ -31,7 +31,7 @@ Node.js gerekir (Claude Code kullanıcılarında genelde vardır). `hooks/log.js
 }
 ```
 
-Bir alt ajan çalıştır, sonra `tail -f ~/.tinyfloor/events.jsonl` komutunu çalıştır.
+Bir alt ajan çalıştır, sonra `tail -f ~/.teenyteam/events.jsonl` komutunu çalıştır.
 
 `hooks/fixtures/` içindeki gerçek hook girdileriyle kendi kendine sınama:
 
@@ -69,4 +69,4 @@ Ortak alanlar: `v` (biçim sürümü), `t` (ISO zamanı), `project` (`cwd`), `se
 
 ## Lisans
 
-MIT. Tinyfloor bağımsız bir projedir, Anthropic ile bağlantısı yoktur.
+MIT. TeenyTeam bağımsız bir projedir, Anthropic ile bağlantısı yoktur.
